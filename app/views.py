@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.db.models.functions import Length
 from app.models import *
+
 # Create your views here.
 def display_topic(request):
     LoT=Topic.objects.all()
@@ -19,7 +21,9 @@ def display_webpage(request):
     LOW=Webpage.objects.all()[1:3:]
     LOW=Webpage.objects.all().order_by('name')
     LOW=Webpage.objects.all().order_by('-name')
-    
+    LOW=Webpage.objects.all().order_by(Length('name'))
+    LOW=Webpage.objects.all().order_by(Length('name').desc())
+
     d={'webpages':LOW}
     return render(request,'display_webpage.html',d)
 
